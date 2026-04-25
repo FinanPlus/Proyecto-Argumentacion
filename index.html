@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Inversión Sostenible en Latinoamérica · ESG · Tipografía robusta</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde-oscuro: #1B4332;
+  --verde-medio: #2D6A4F;
+  --verde-claro: #74C69D;
+  --dorado: #F4A261;
+  --dorado-claro: #FFF3E5;
+  --blanco: #FFFFFF;
+  --gris-claro: #F4F4F0;
+  --tp-bg: #0D1117;
+  --tp-text: #E6EDF3;
+  --tp-gold: #F4A261;
+  --rojo: #E63946;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:#111; height:100vh; overflow:hidden; display:flex; flex-direction:column; }
+
+/* TOP BAR */
+#topbar { height:4px; background:#222; flex-shrink:0; }
+#progress-bar { height:100%; background:linear-gradient(90deg,var(--verde-claro),var(--dorado)); transition:width .5s ease; }
+
+/* CONTROLS */
+#controls { display:flex; align-items:center; justify-content:space-between; background:#161b22; padding:8px 20px; flex-shrink:0; border-bottom:1px solid #30363d; }
+.ctrl-group { display:flex; align-items:center; gap:10px; }
+#slide-counter { font-size:13px; color:#8b949e; letter-spacing:1px; min-width:50px; text-align:center; }
+#timer { font-size:16px; font-weight:600; color:var(--verde-claro); letter-spacing:2px; min-width:58px; }
+.btn { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; padding:5px 13px; border:1px solid #30363d; border-radius:6px; cursor:pointer; }
+.btn-nav { background:#21262d; color:#c9d1d9; }
+.btn-nav:hover { background:#30363d; }
+.btn-nav:disabled { opacity:.3; cursor:not-allowed; }
+.btn-green { background:var(--verde-oscuro); color:#fff; border-color:var(--verde-medio); }
+.btn-green:hover { background:var(--verde-medio); }
+.btn-dim { background:#21262d; color:#8b949e; }
+.btn-dim:hover { background:#30363d; color:#fff; }
+.btn-dim.on { background:var(--dorado); color:#111; border-color:var(--dorado); }
+
+/* LAYOUT */
+#main { display:flex; flex:1; overflow:hidden; }
+#slide-panel { width:60%; position:relative; overflow:hidden; background:#000; transition:width .3s; }
+#slide-panel.full { width:100%; }
+
+.slide { position:absolute; inset:0; opacity:0; transition:opacity .4s ease; pointer-events:none; overflow-y:auto; scrollbar-width:thin; padding: 8px 0; }
+.slide.active { opacity:1; pointer-events:auto; }
+
+/* TELEPROMPTER */
+#tp-panel { width:40%; background:var(--tp-bg); overflow-y:auto; border-left:1px solid #21262d; padding:28px 32px 60px; transition:width .3s; }
+#tp-panel.hidden { display:none; }
+.tp-block { display:none; }
+.tp-block.active { display:block; }
+.tp-header { font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--tp-gold); margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid #21262d; }
+.tp-badge { font-size:11px; background:#21262d; color:#8b949e; padding:3px 10px; border-radius:20px; }
+.tp-text { font-size:21px; line-height:1.7; color:var(--tp-text); font-weight:500; }
+.tp-text em { color:#ffd966; font-style:italic; font-weight:600; }
+.tp-rubric { margin-top:24px; padding:14px 18px; background:#161b22; border-left:4px solid #3fb950; border-radius:0 8px 8px 0; font-size:14px; color:#b0f0b0; font-weight:500; }
+.tp-tip { margin-top:20px; padding:14px 18px; background:#161b22; border-left:4px solid var(--tp-gold); border-radius:0 8px 8px 0; font-size:14px; color:#adbac7; font-weight:500; }
+
+/* ----- TODAS LAS SLIDES CON TIPOGRAFÍA MÁS GRUESA Y LEGIBLE ----- */
+/* S1 PORTADA */
+.s1 { background-image:url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&auto=format&fit=crop'); background-size:cover; background-position:center; display:flex; align-items:flex-end; padding:44px 52px; }
+.s1-ov { position:absolute; inset:0; background:linear-gradient(160deg,rgba(27,67,50,.87),rgba(10,22,16,.96)); }
+.s1-c { position:relative; z-index:2; max-width:650px; }
+.s1-eye { font-size:14px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--verde-claro); margin-bottom:22px; }
+.s1-t { font-family:'Cormorant Garamond',serif; font-size:62px; font-weight:600; color:#fff; line-height:1.1; }
+.s1-div { width:64px; height:3px; background:var(--dorado); margin:22px 0; }
+.s1-sub { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:600; font-style:italic; color:var(--dorado); margin-bottom:28px; }
+.s1-meta { font-size:14px; font-weight:500; color:rgba(255,255,255,.6); letter-spacing:2px; }
+
+/* S2 PREGUNTA */
+.s2 { background:var(--gris-claro); display:flex; flex-direction:column; }
+.sh { background:var(--verde-oscuro); padding:18px 40px; display:flex; align-items:center; gap:20px; flex-shrink:0; }
+.sh-num { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:700; color:var(--verde-claro); letter-spacing:3px; }
+.sh-title { font-size:16px; font-weight:600; color:rgba(255,255,255,.8); }
+.sb { flex:1; padding:36px 44px; display:flex; flex-direction:column; justify-content:center; gap:28px; }
+.q-box { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:600; color:var(--verde-oscuro); line-height:1.35; text-align:center; padding:28px 20px; }
+.thesis-box { border-left:5px solid var(--dorado); background:var(--dorado-claro); padding:24px 28px; border-radius:0 14px 14px 0; }
+.thesis-label { font-size:12px; font-weight:800; letter-spacing:3px; text-transform:uppercase; color:var(--dorado); margin-bottom:10px; }
+.thesis-text { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; font-style:italic; color:var(--verde-oscuro); line-height:1.5; }
+
+/* S3 RELEVANCIA */
+.s3 { background:#fff; display:flex; flex-direction:column; }
+.s3-grid { flex:1; display:grid; grid-template-columns:1fr 1fr; }
+.s3-l { padding:34px 36px 34px 44px; display:flex; flex-direction:column; gap:20px; }
+.s3-r { background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&auto=format&fit=crop'); background-size:cover; background-position:center; position:relative; }
+.s3-r-ov { position:absolute; inset:0; background:linear-gradient(90deg,rgba(255,255,255,.3),rgba(27,67,50,.2)); }
+.ic { display:flex; align-items:flex-start; gap:16px; padding:16px 18px; background:var(--gris-claro); border-radius:12px; border-left:4px solid var(--verde-claro); }
+.ic-icon { font-size:32px; flex-shrink:0; }
+.ic-text { font-size:16px; font-weight:500; color:#2c2c2c; line-height:1.55; }
+.ic-text strong { display:block; font-weight:800; color:var(--verde-oscuro); font-size:17px; margin-bottom:5px; }
+.eq { border-left:5px solid var(--dorado); background:var(--dorado-claro); padding:18px 24px; border-radius:0 12px 12px 0; }
+.eq p { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600; font-style:italic; color:#2d2d2d; line-height:1.6; }
+.eq cite { display:block; text-align:right; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700; letter-spacing:1px; color:var(--dorado); margin-top:8px; text-transform:uppercase; }
+.anchor { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; font-style:italic; color:var(--verde-medio); text-align:center; padding:12px; border-top:1px solid #ddd; }
+
+/* S4 FUENTES */
+.s4 { background:var(--gris-claro); display:flex; flex-direction:column; }
+.srcs { display:flex; flex-direction:column; gap:12px; padding:32px 44px; flex:1; justify-content:center; }
+.src-card { display:flex; align-items:center; gap:20px; background:#fff; border-radius:14px; padding:14px 22px; border:1px solid #e2e2da; }
+.src-yr { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:800; color:var(--verde-claro); min-width:58px; text-align:center; }
+.src-info strong { font-size:16px; font-weight:800; color:var(--verde-oscuro); display:block; margin-bottom:4px; }
+.src-info span { font-size:14px; font-weight:500; color:#666; }
+.src-tag { margin-left:auto; font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; background:#e8f5ee; color:var(--verde-medio); padding:5px 12px; border-radius:40px; }
+.srcs-foot { text-align:center; padding:16px 44px 20px; font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:700; color:var(--verde-oscuro); border-top:1px solid #ddd; }
+
+/* EVIDENCE SLIDES */
+.ev { background:#fff; display:flex; flex-direction:column; }
+.big-bg { position:absolute; font-family:'Cormorant Garamond',serif; font-size:220px; font-weight:800; color:var(--verde-claro); opacity:.05; right:20px; bottom:-20px; pointer-events:none; }
+.ev-body { flex:1; padding:28px 44px; display:flex; flex-direction:column; gap:22px; position:relative; z-index:1; }
+.cons-row { display:flex; gap:18px; }
+.cons-card { flex:1; background:var(--gris-claro); border-radius:14px; padding:22px; text-align:center; border-top:4px solid var(--verde-claro); }
+.cons-card .ci { font-size:36px; display:block; margin-bottom:12px; }
+.cons-card .cl { font-size:15px; font-weight:800; color:var(--verde-oscuro); text-transform:uppercase; letter-spacing:1px; }
+.meta-strip { background:linear-gradient(135deg,var(--verde-oscuro),var(--verde-medio)); border-radius:14px; padding:16px 24px; font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; font-style:italic; color:rgba(255,255,255,.96); text-align:center; }
+
+/* S6 STAKEHOLDERS */
+.stake-wrap { position:relative; width:280px; height:210px; margin:10px auto; }
+.stake-c { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:88px; height:48px; background:var(--verde-oscuro); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; color:#fff; }
+.sn { position:absolute; background:var(--verde-claro); color:var(--verde-oscuro); font-size:13px; font-weight:800; padding:6px 14px; border-radius:40px; white-space:nowrap; letter-spacing:.5px; }
+.sn1 { top:2px; left:50%; transform:translateX(-50%); }
+.sn2 { top:50%; left:-8px; transform:translateY(-50%); }
+.sn3 { bottom:8px; left:16%; }
+.sn4 { bottom:8px; right:10%; }
+.sn5 { top:50%; right:-8px; transform:translateY(-50%); }
+.stake-svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+
+/* S7 RENTABILIDAD */
+.stat-row { display:flex; gap:20px; }
+.stat-card { flex:1; background:var(--gris-claro); border-radius:16px; padding:24px 16px; text-align:center; }
+.stat-big { font-family:'Cormorant Garamond',serif; font-size:88px; font-weight:800; color:var(--verde-medio); line-height:1; display:block; }
+.stat-big.gold { color:var(--dorado); }
+.stat-desc { font-size:15px; font-weight:600; color:#444; line-height:1.5; margin-top:10px; }
+.stat-src { font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--dorado); margin-top:8px; }
+.cmp-row { display:flex; gap:14px; }
+.cmp-card { flex:1; border-radius:14px; padding:16px 18px; display:flex; align-items:flex-start; gap:14px; }
+.cmp-card.eu { background:#e8f5ee; border-left:4px solid var(--verde-medio); }
+.cmp-card.la { background:#fff8ee; border-left:4px solid var(--dorado); }
+.cmp-flag { font-size:28px; }
+.cmp-txt strong { font-size:15px; font-weight:800; color:var(--verde-oscuro); display:block; margin-bottom:6px; }
+.cmp-txt span { font-size:14px; font-weight:500; color:#555; line-height:1.5; }
+
+/* UNIFICACIÓN SLIDE 8+9: GREENWASHING + IMAGEN PEQUEÑA */
+.slide-unified { background:#fff; display:flex; flex-direction:column; }
+.unified-grid { display:flex; flex:1; gap:24px; padding:28px 36px; align-items:stretch; }
+.unified-left { flex: 1.5; display:flex; flex-direction:column; gap:20px; }
+.unified-right { flex: 1; display:flex; align-items:center; justify-content:center; background: #faf9f5; border-radius:28px; padding:16px; border:1px solid #e6e0d0; }
+.unified-right img { max-width:100%; max-height:220px; width:auto; height:auto; object-fit:contain; border-radius:16px; box-shadow:0 6px 14px rgba(0,0,0,0.05); }
+.gw-tbl { width:100%; border-collapse:collapse; border-radius:14px; overflow:hidden; }
+.gw-tbl th { padding:12px 14px; font-size:14px; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
+.gw-tbl th:first-child { background:#fce8e8; color:#c0392b; }
+.gw-tbl th:last-child { background:#e8f5ee; color:var(--verde-medio); }
+.gw-tbl td { padding:12px 14px; font-size:15px; font-weight:500; color:#2c2c2c; border-bottom:1px solid #f0f0ea; }
+.gw-ex { background:#fff8ee; border:1px solid var(--dorado); border-radius:14px; padding:16px 20px; display:flex; gap:16px; align-items:flex-start; }
+.gw-ex-icon { font-size:34px; }
+.gw-ex-text { font-size:15px; font-weight:500; color:#444; line-height:1.6; }
+.gw-ex-text strong { font-weight:800; color:var(--verde-oscuro); }
+.eq-sm { border-left:4px solid var(--dorado); background:var(--dorado-claro); padding:14px 18px; border-radius:0 12px 12px 0; }
+.eq-sm p { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:600; font-style:italic; color:#2d2d2d; }
+
+/* S10 (anterior 10) RESERVAS */
+.s10-reservas { background:#fff; display:flex; flex-direction:column; }
+.res-cards { display:flex; gap:18px; flex:1; padding:28px 44px; align-items:stretch; }
+.res-card { flex:1; background:#fffbf0; border:1px solid #f0d88a; border-radius:16px; padding:22px; display:flex; flex-direction:column; gap:10px; border-top:5px solid var(--dorado); }
+.res-n { font-family:'Cormorant Garamond',serif; font-size:46px; font-weight:800; color:var(--dorado); }
+.res-t { font-size:16px; font-weight:800; color:var(--verde-oscuro); text-transform:uppercase; letter-spacing:1px; }
+.res-txt { font-size:15px; font-weight:500; color:#444; line-height:1.6; flex:1; }
+.res-ref { font-size:12px; font-weight:800; color:var(--dorado); letter-spacing:1px; text-transform:uppercase; }
+.res-foot { padding:16px 44px 22px; border-top:1px solid #ddd; font-family:'Cormorant Garamond',serif; font-size:19px; font-weight:700; font-style:italic; color:var(--verde-oscuro); text-align:center; }
+
+/* S11 CONCLUSIÓN */
+.s11-conclusion { background-image:url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1200&auto=format&fit=crop'); background-size:cover; background-position:center; display:flex; flex-direction:column; }
+.s11-ov { position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,22,16,.92),rgba(27,67,50,.96)); }
+.s11-c { position:relative; z-index:2; flex:1; display:flex; flex-direction:column; justify-content:space-between; padding:36px 48px 40px; gap:20px; }
+.s11-lbl { font-size:14px; font-weight:800; letter-spacing:4px; text-transform:uppercase; color:var(--dorado); }
+.s11-phrase { font-family:'Cormorant Garamond',serif; font-size:44px; font-weight:600; color:#fff; line-height:1.25; max-width:600px; }
+.s11-phrase em { font-style:italic; color:var(--dorado); font-weight:700; }
+.s11-rec { background:rgba(116,198,157,.12); border:1px solid rgba(116,198,157,.4); border-radius:14px; padding:16px 22px; font-size:16px; font-weight:500; color:rgba(255,255,255,.92); line-height:1.6; }
+.s11-rec strong { color:var(--verde-claro); font-weight:800; }
+.pillars { display:flex; gap:12px; flex-wrap:wrap; }
+.pbadge { font-size:14px; font-weight:600; padding:6px 14px; border:1px solid rgba(116,198,157,.5); border-radius:40px; color:var(--verde-claro); background:rgba(116,198,157,.1); }
+.s11-q { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; font-style:italic; color:var(--dorado); border-top:1px solid rgba(244,162,97,.4); padding-top:18px; }
+
+/* REFERENCIAS */
+.refs { background:#fafaf8; }
+.refs-body { flex:1; padding:26px 44px 32px; overflow-y:auto; display:flex; flex-direction:column; gap:6px; }
+.ref { font-size:14px; font-weight:500; color:#3a3a3a; line-height:1.7; padding:10px 0; border-bottom:1px solid #eaeae4; }
+.ref em { font-style:italic; font-weight:600; }
+
+/* IMAGE SLIDE adicional (primera imagen) */
+.img-slide { background: #0a1a14; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 30px; text-align: center; }
+.img-slide .img-container { max-width: 88%; max-height: 70%; background: rgba(0,0,0,0.3); border-radius: 28px; padding: 12px; border: 1px solid rgba(116,198,157,0.4); }
+.img-slide img { width: 100%; height: auto; max-height: 58vh; object-fit: contain; border-radius: 20px; }
+.img-caption { margin-top: 32px; font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight:600; color: var(--verde-claro); background: rgba(0,0,0,0.55); padding: 10px 28px; border-radius: 60px; backdrop-filter: blur(5px); }
+</style>
+</head>
+<body>
+
+<div id="topbar"><div id="progress-bar"></div></div>
+
+<div id="controls">
+  <div class="ctrl-group">
+    <button class="btn btn-nav" id="btn-prev" onclick="go(-1)">← Anterior</button>
+    <span id="slide-counter">1 / 12</span>
+    <button class="btn btn-nav" id="btn-next" onclick="go(1)">Siguiente →</button>
+  </div>
+  <div class="ctrl-group">
+    <span id="timer">00:00</span>
+    <button class="btn btn-green" id="btn-t" onclick="toggleTimer()">▶ Iniciar</button>
+    <button class="btn btn-dim" onclick="resetTimer()">Reset</button>
+  </div>
+  <div class="ctrl-group">
+    <button class="btn btn-dim" id="btn-mode" onclick="toggleMode()">📺 Solo slides</button>
+  </div>
+</div>
+
+<div id="main">
+<div id="slide-panel">
+  <!-- S1 PORTADA -->
+  <div class="slide s1 active">
+    <div class="s1-ov"></div>
+    <div class="s1-c"><div class="s1-eye">Argumentación Académica · ESP0022</div><h1 class="s1-t">Inversión sostenible<br>en Latinoamérica</h1><div class="s1-div"></div><div class="s1-sub">¿Moda pasajera o estrategia rentable?</div><div class="s1-meta">Criterios ASG / ESG · Desempeño financiero · Contexto latinoamericano</div></div>
+  </div>
+  <!-- IMAGEN 1: ESG -->
+  <div class="slide img-slide"><div class="img-container"><img src="https://cdn.ogsmsoftware.com/wp-content/uploads/2022/08/ESG-Pictures-landing-page.png" alt="ESG framework"></div><div class="img-caption">Ambiental, Social y Gobernanza: pilares de la inversión sostenible</div></div>
+  <!-- S2 PREGUNTA -->
+  <div class="slide s2"><div class="sh"><span class="sh-num">Pregunta de investigación</span></div><div class="sb"><div class="q-box">"¿Es la inversión bajo criterios ASG una moda pasajera, o una estrategia financieramente rentable en el largo plazo para el contexto latinoamericano?"</div><div class="thesis-box"><div class="thesis-label">Tesis central (aserción)</div><div class="thesis-text">Cuando se implementa con autenticidad —y no únicamente como estrategia de marketing— la inversión sostenible combina ética y rentabilidad, evitando costos derivados de riesgos no gestionados.</div></div></div></div>
+  <!-- S3 RELEVANCIA -->
+  <div class="slide s3"><div class="sh"><span class="sh-num">Relevancia del trabajo</span><span class="sh-title">¿Por qué importa este tema?</span></div><div class="s3-grid"><div class="s3-l"><div class="ic"><span class="ic-icon">🌎</span><div class="ic-text"><strong>Inestabilidad normativa</strong>Latinoamérica enfrenta marcos regulatorios cambiantes y conflictos socioambientales frecuentes.</div></div><div class="ic"><span class="ic-icon">⚖️</span><div class="ic-text"><strong>Tensión estratégica</strong>Rentabilidad inmediata vs. responsabilidad de largo plazo: una tensión que define el futuro financiero.</div></div><div class="ic"><span class="ic-icon">📢</span><div class="ic-text"><strong>Presión social creciente</strong>Comunidades, reguladores y mercados exigen transparencia y compromiso real.</div></div><div class="eq"><p>"Las empresas que no invierten en términos ambientales y sociales quedan expuestas a cambios regulatorios, reformas fiscales y sanciones, así como al riesgo reputacional."</p><cite>— Castro, 2025</cite></div><div class="anchor">Los riesgos que hoy se ignoran, mañana se pagan.</div></div><div class="s3-r"><div class="s3-r-ov"></div></div></div></div>
+  <!-- S4 FUENTES -->
+  <div class="slide s4"><div class="sh"><span class="sh-num">Base empírica</span><span class="sh-title">Cinco estudios. Datos reales. Nuestra región.</span></div><div class="srcs"><div class="src-card"><div class="src-yr">2020</div><div class="src-info"><strong>Correa-García &amp; Vásquez-Arango</strong><span>Desempeño ASG e incidencia en el desempeño financiero latinoamericano</span></div><div class="src-tag">Latam</div></div><div class="src-card"><div class="src-yr">2022</div><div class="src-info"><strong>Lee, Safieddine et al.</strong><span>Corporate governance and ESG · CFA Curriculum</span></div><div class="src-tag">Global</div></div><div class="src-card"><div class="src-yr">2025</div><div class="src-info"><strong>Castro &amp; Palestina</strong><span>Inversión sostenible vs. convencional · BMV</span></div><div class="src-tag">México</div></div><div class="src-card"><div class="src-yr">2025</div><div class="src-info"><strong>Olaya-Correa, Mejía-Cano et al.</strong><span>Prácticas ASG y flujos de caja libre</span></div><div class="src-tag">Latam</div></div><div class="src-card"><div class="src-yr">2025</div><div class="src-info"><strong>Alzate, Cano, Del Río, Correa-García</strong><span>Criterios ESG y costo de capital · DJSI</span></div><div class="src-tag">Latam</div></div></div><div class="srcs-foot">Datos reales · Empresas reales · Nuestra región</div></div>
+  <!-- S5 RIESGO -->
+  <div class="slide ev"><div class="sh"><span class="sh-num">01 · Evidencia</span><span class="sh-title">Riesgo ASG: el radar que las empresas necesitan</span></div><div class="ev-body"><div class="big-bg">01</div><div class="eq"><p>"Los conflictos de interés no gestionados, las debilidades en los mecanismos de gestión de grupos de interés y la adopción de estructuras de gobernanza deficientes pueden generar diversos riesgos para una empresa."</p><cite>— Lee et al., 2022</cite></div><div class="cons-row"><div class="cons-card"><span class="ci">🏛</span><div class="cl">Sanciones regulatorias</div></div><div class="cons-card"><span class="ci">⚠️</span><div class="cl">Conflictos sociales</div></div><div class="cons-card"><span class="ci">📉</span><div class="cl">Daño reputacional</div></div></div><div class="meta-strip">Como una olla a presión: los riesgos acumulados no desaparecen solos. Terminan estallando en el momento más inoportuno.</div></div></div>
+  <!-- S6 STAKEHOLDERS (CORREGIDA: SIN ELEMENTOS ENCIMADOS, MÁS ESPACIADO Y LEGIBLE) -->
+<div class="slide ev">
+  <div class="sh">
+    <span class="sh-num">02 · Evidencia</span>
+    <span class="sh-title">La red que sostiene o erosiona a la empresa</span>
+  </div>
+  <div class="ev-body" style="gap: 28px; padding: 32px 44px;">
+    <div class="big-bg">02</div>
+    
+    <!-- Diagrama de stakeholders con márgenes y posiciones ajustadas -->
+    <div class="stake-wrap" style="margin: 20px auto; width: 320px; height: 260px; position: relative;">
+      <svg class="stake-svg" viewBox="0 0 320 260" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+        <line x1="160" y1="130" x2="160" y2="25" stroke="#74C69D" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
+        <line x1="160" y1="130" x2="20" y2="130" stroke="#74C69D" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
+        <line x1="160" y1="130" x2="85" y2="235" stroke="#74C69D" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
+        <line x1="160" y1="130" x2="235" y2="235" stroke="#74C69D" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
+        <line x1="160" y1="130" x2="300" y2="130" stroke="#74C69D" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
+      </svg>
+      <div class="stake-c" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 52px; background: var(--verde-oscuro); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">Empresa</div>
+      <div class="sn sn1" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--verde-claro); color: var(--verde-oscuro); font-size: 14px; font-weight: 800; padding: 8px 18px; border-radius: 40px; white-space: nowrap;">Empleados</div>
+      <div class="sn sn2" style="position: absolute; top: 50%; left: -20px; transform: translateY(-50%); background: var(--verde-claro); color: var(--verde-oscuro); font-size: 14px; font-weight: 800; padding: 8px 18px; border-radius: 40px;">Clientes</div>
+      <div class="sn sn3" style="position: absolute; bottom: 5px; left: 12%; background: var(--verde-claro); color: var(--verde-oscuro); font-size: 14px; font-weight: 800; padding: 8px 18px; border-radius: 40px;">Comunidades</div>
+      <div class="sn sn4" style="position: absolute; bottom: 5px; right: 8%; background: var(--verde-claro); color: var(--verde-oscuro); font-size: 14px; font-weight: 800; padding: 8px 18px; border-radius: 40px;">Reguladores</div>
+      <div class="sn sn5" style="position: absolute; top: 50%; right: -20px; transform: translateY(-50%); background: var(--verde-claro); color: var(--verde-oscuro); font-size: 14px; font-weight: 800; padding: 8px 18px; border-radius: 40px;">Proveedores</div>
+    </div>
+    
+    <div class="eq" style="margin-top: 12px;">
+      <p>"Deben considerar los intereses de clientes, empleados, el Estado, la comunidad y los proveedores como parte del proceso de creación de valor empresarial."</p>
+      <cite>— Correa &amp; Vásquez, 2020</cite>
+    </div>
+    <div class="meta-strip" style="margin-top: 8px; font-size: 18px; padding: 16px 24px;">
+      La responsabilidad social no es solo imagen. Es una necesidad estratégica.
+    </div>
+  </div>
+</div>
+  <!-- S7 RENTABILIDAD -->
+  <div class="slide ev"><div class="sh"><span class="sh-num">03 · Evidencia</span><span class="sh-title">La rentabilidad habla por sí sola</span></div><div class="ev-body"><div class="big-bg">03</div><div class="stat-row"><div class="stat-card"><span class="stat-big">90%</span><div class="stat-desc">de los estudios muestran relación <strong>no negativa</strong> entre ASG y desempeño financiero</div><div class="stat-src">Correa et al., 2020</div></div><div class="stat-card"><span class="stat-big gold">99%</span><div class="stat-desc">confianza en relación positiva entre prácticas ASG y <strong>flujo de caja libre</strong></div><div class="stat-src">Olaya et al., 2025</div></div></div><div class="cmp-row"><div class="cmp-card eu"><div class="cmp-flag">🌍</div><div class="cmp-txt"><strong>Europa</strong><span>Mejor ESG = financiamiento más barato. Mercados maduros premian la sostenibilidad.</span></div></div><div class="cmp-card la"><div class="cmp-flag">🌎</div><div class="cmp-txt"><strong>Latinoamérica — En transición</strong><span>La gobernanza corporativa ya tiene efecto medible sobre el costo de capital (Alzate et al., 2025).</span></div></div></div></div></div>
+  <!-- S8 UNIFICADA (greenwashing + imagen pequeña) -->
+  <div class="slide slide-unified"><div class="sh"><span class="sh-num">04 · Evidencia</span><span class="sh-title">Greenwashing: el espejo que distorsiona la realidad</span></div><div class="unified-grid"><div class="unified-left"><table class="gw-tbl"><thead><tr><th>❌ Greenwashing</th><th>✅ Integración genuina</th></tr></thead><tbody><tr><td>Ilusión temporal</td><td>Ventaja competitiva duradera</td></tr><tr><td>Genera desconfianza del mercado</td><td>Reputación como escudo protector</td></tr><tr><td>Riesgo oculto acumulado</td><td>Flujos de caja libres más estables</td></tr></tbody></table><div class="gw-ex"><div class="gw-ex-icon">🏭</div><div class="gw-ex-text"><strong>Ejemplo concreto:</strong> Una empresa minera que planta árboles en la entrada de su oficina mientras sigue vertiendo residuos a un río. Eso es greenwashing: un disfraz que no transforma la esencia.</div></div><div class="eq-sm"><p>"Las prácticas ASG generan una ventaja competitiva para aquellas organizaciones que decidan implementarlas genuinamente, pues obtienen ventajas financieras superiores y capacidades que las distinguen de sus competidores."</p><cite>— Olaya, 2025</cite></div></div><div class="unified-right"><img src="https://www.iberdrola.com/documents/20125/1282559/Criterios_ESG_746x419.jpg/262eaeff-0a16-b5a3-2b96-0332daa44db0?t=1639475532730" alt="Criterios ESG"></div></div></div>
+  <!-- S9 RESERVAS (ahora slide 9) -->
+  <div class="slide s10-reservas"><div class="sh"><span class="sh-num">Reservas</span><span class="sh-title">Lo que este argumento reconoce — y refuta</span></div><div class="res-cards"><div class="res-card"><div class="res-n">1</div><div class="res-t">Corto plazo</div><div class="res-txt">Algunos fondos ESG mostraron retornos ajustados al riesgo negativos de entre -2% y -6% anual (Renneboog et al., 2008). <strong>Sin embargo</strong>, esto refleja costos de transición, no la tendencia de largo plazo: el 90% de la evidencia acumulada muestra relación no negativa.</div><div class="res-ref">Renneboog et al., 2008</div></div><div class="res-card"><div class="res-n">2</div><div class="res-t">Heterogeneidad regional</div><div class="res-txt">Latinoamérica no es homogénea y en algunos contextos implementar ESG puede elevar el costo de capital. <strong>Sin embargo</strong>, la tendencia del componente de gobernanza ya apunta al cambio.</div><div class="res-ref">Alzate et al., 2025</div></div><div class="res-card"><div class="res-n">3</div><div class="res-t">Calidad de información</div><div class="res-txt">"La divulgación no financiera está en maduración" en la región. <strong>Sin embargo</strong>, esto no invalida la inversión ASG: refuerza la necesidad de mayor transparencia.</div><div class="res-ref">Alzate et al., 2025</div></div></div><div class="res-foot">Reconocer las reservas y refutarlas fortalece el argumento — no lo debilita.</div></div>
+  <!-- S10 CONCLUSIÓN -->
+  <div class="slide s11-conclusion"><div class="s11-ov"></div><div class="s11-c"><div class="s11-lbl">Conclusión</div><div class="s11-phrase">Ética y rentabilidad no son las dos caras opuestas de una moneda: son <em>piezas del mismo engranaje</em> que funcionan mejor cuando están juntas.</div><div><div class="s11-rec"><strong>Recomendación:</strong> Las empresas latinoamericanas deben avanzar en la divulgación de información no financiera y los gobiernos deben fortalecer los marcos regulatorios que incentiven la inversión sostenible auténtica.</div><div class="pillars"><div class="pbadge">① Riesgo ASG</div><div class="pbadge">② Stakeholders</div><div class="pbadge">③ Rentabilidad 90%</div><div class="pbadge">④ Flujo de caja libre</div><div class="pbadge">⑤ Integración genuina</div></div></div><div class="s11-q">"La pregunta no es si podemos permitirnos invertir de forma sostenible. La pregunta es si podemos permitirnos <em>no</em> hacerlo."</div></div></div>
+  <!-- S11 REFERENCIAS -->
+  <div class="slide refs"><div class="sh"><span class="sh-num">Referencias APA 7</span></div><div class="refs-body"><div class="ref">Alzate, S. M. A., Cano, M. J. D., Del Río, C. O., &amp; Correa-García, J. A. (2025). Relación entre criterios ESG y el costo de capital... <em>Revista de Ciencias Administrativas.</em></div><div class="ref">Broadstock, D. C. et al. (2021). The role of ESG performance during times of financial crisis. <em>Finance Research Letters, 38.</em></div><div class="ref">Castro, M. M. S., &amp; Palestina, J. P. (2025). Inversión sostenible vs. convencional en la BMV. <em>Revista Mexicana de Economía y Finanzas.</em></div><div class="ref">Correa-García, J. A., &amp; Vásquez-Arango, L. (2020). Desempeño ASG: incidencia en el desempeño financiero latinoamericano. <em>Cuadernos de Administración.</em></div><div class="ref">Lee, Y., Safieddine, A., et al. (2022). Corporate governance and ESG considerations. <em>CFA Program Curriculum.</em></div><div class="ref">Olaya-Correa, S., Mejía-Cano, T. K., et al. (2025). Prácticas ASG y flujos de caja libre. <em>Revista CEA, 11</em>(25).</div><div class="ref">Renneboog, L., Ter Horst, J., &amp; Zhang, C. (2008). The price of ethics. <em>Journal of Corporate Finance, 14</em>(3).</div></div></div>
+</div>
+
+<!-- TELEPROMPTER (adaptado) -->
+<div id="tp-panel"><div class="tp-block active" data-s="0"><div class="tp-header">Slide 1 — Portada <span class="tp-badge">~30 seg</span></div><div class="tp-text">Buenos días. Hoy: inversión sostenible en Latinoamérica. La inversión ASG va más allá de la rentabilidad inmediata.</div></div><div class="tp-block" data-s="1"><div class="tp-header">Imagen ESG <span class="tp-badge">~20 seg</span></div><div class="tp-text">Esta imagen muestra los tres pilares: ambiental, social y gobernanza.</div></div><div class="tp-block" data-s="2"><div class="tp-header">Pregunta + tesis <span class="tp-badge">~40 seg</span></div><div class="tp-text">¿Moda o estrategia rentable? Cuando se implementa con autenticidad, combina ética y rentabilidad.</div></div><div class="tp-block" data-s="3"><div class="tp-header">Relevancia <span class="tp-badge">~50 seg</span></div><div class="tp-text">Latinoamérica: inestabilidad normativa, conflictos. Ignorar ASG trae sanciones y riesgo reputacional. Los riesgos ignorados se pagan.</div></div><div class="tp-block" data-s="4"><div class="tp-header">Base empírica <span class="tp-badge">~25 seg</span></div><div class="tp-text">Cinco estudios 2020-2025: Correa, Olaya, Alzate, Castro, Lee. Datos reales de nuestra región.</div></div><div class="tp-block" data-s="5"><div class="tp-header">Riesgo ASG <span class="tp-badge">~55 seg</span></div><div class="tp-text">Lee: conflictos de interés y mala gobernanza generan riesgos. Como olla a presión: estalla en sanciones o conflictos sociales.</div></div><div class="tp-block" data-s="6"><div class="tp-header">Stakeholders <span class="tp-badge">~50 seg</span></div><div class="tp-text">La empresa no es una isla. Empleados, clientes, comunidades, estado. Si un eslabón falla, el valor se paraliza.</div></div><div class="tp-block" data-s="7"><div class="tp-header">Rentabilidad <span class="tp-badge">~1 min</span></div><div class="tp-text">90% de estudios muestran relación no negativa. Olaya: 99% confianza en flujo de caja libre. Gobernanza reduce costo de capital.</div></div><div class="tp-block" data-s="8"><div class="tp-header">Greenwashing + imagen <span class="tp-badge">~55 seg</span></div><div class="tp-text">Greenwashing: minera que planta árboles pero contamina. Genera desconfianza. La integración genuina otorga ventaja real. La imagen muestra criterios ESG aplicados.</div></div><div class="tp-block" data-s="9"><div class="tp-header">Reservas <span class="tp-badge">~1 min</span></div><div class="tp-text">Tres reservas: corto plazo negativo pero es transición; heterogeneidad regional pero gobernanza ya muestra efecto; información en maduración → más transparencia. Reconocerlas fortalece el argumento.</div></div><div class="tp-block" data-s="10"><div class="tp-header">Conclusión <span class="tp-badge">~1 min</span></div><div class="tp-text">No es moda. Demostramos riesgo, stakeholders, rentabilidad 90%, flujos de caja, diferencia con greenwashing. Recomendación: divulgar y fortalecer marcos. Ética y rentabilidad van juntas. ¿Podemos permitirnos no invertir sostenible? Gracias.</div></div><div class="tp-block" data-s="11"><div class="tp-header">Referencias <span class="tp-badge">No leer</span></div><div class="tp-text">Formato APA 7. Fuentes disponibles.</div></div></div>
+</div>
+
+<script>
+const TOTAL = 12;
+let cur = 0, secs = 0, running = false, iv = null;
+const slides = document.querySelectorAll('.slide');
+const blocks = document.querySelectorAll('.tp-block');
+function goTo(i){ if(i<0||i>=TOTAL) return; slides[cur].classList.remove('active'); if(blocks[cur])blocks[cur].classList.remove('active'); cur=i; slides[cur].classList.add('active'); if(blocks[cur])blocks[cur].classList.add('active'); document.getElementById('slide-counter').textContent=(cur+1)+' / '+TOTAL; document.getElementById('progress-bar').style.width=((cur+1)/TOTAL*100)+'%'; document.getElementById('btn-prev').disabled=cur===0; document.getElementById('btn-next').disabled=cur===TOTAL-1; if(document.getElementById('tp-panel')) document.getElementById('tp-panel').scrollTop=0; }
+function go(d){ goTo(cur+d); }
+document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key==='ArrowDown') go(1); if(e.key==='ArrowLeft'||e.key==='ArrowUp') go(-1); });
+function pad(n){ return String(n).padStart(2,'0'); }
+function tick(){ secs++; const el=document.getElementById('timer'); el.textContent=pad(Math.floor(secs/60))+':'+pad(secs%60); }
+function toggleTimer(){ const btn=document.getElementById('btn-t'); if(running){ clearInterval(iv); running=false; btn.textContent='▶ Continuar'; } else { iv=setInterval(tick,1000); running=true; btn.textContent='⏸ Pausar'; } }
+function resetTimer(){ clearInterval(iv); running=false; secs=0; document.getElementById('timer').textContent='00:00'; document.getElementById('btn-t').textContent='▶ Iniciar'; }
+let pMode=false;
+function toggleMode(){ pMode=!pMode; document.getElementById('tp-panel').classList.toggle('hidden',pMode); document.getElementById('slide-panel').classList.toggle('full',pMode); const btn=document.getElementById('btn-mode'); btn.textContent=pMode?'📝 Ver guion':'📺 Solo slides'; btn.classList.toggle('on',pMode); }
+goTo(0);
+</script>
+</body>
+</html>
