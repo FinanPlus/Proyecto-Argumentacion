@@ -98,3 +98,340 @@
         }
 
         .slide h2 { 
+            font-size: 2.8rem; 
+            color: var(--dark-green); 
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--gold);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        /* Bloques de Cita */
+        .quote-block {
+            border-left: 4px solid var(--gold);
+            background-color: var(--gold-soft);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            color: var(--dark-green);
+        }
+
+        .quote-author {
+            display: block;
+            text-align: right;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--mid-green);
+        }
+
+        /* Elementos Decorativos de Fondo */
+        .bg-number {
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            font-size: 15rem;
+            font-weight: 900;
+            color: rgba(0,0,0,0.03);
+            z-index: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Tarjetas */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--mid-green);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-highlight {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--mid-green);
+            display: block;
+            line-height: 1;
+        }
+
+        /* Navegación REPOSICIONADA para no tapar contenido */
+        .controls {
+            position: absolute;
+            bottom: 1.5rem; /* Más abajo */
+            right: 3rem;   /* A la derecha */
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: var(--dark-green);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover { background: var(--gold); transform: scale(1.1); }
+        .slide-counter { font-weight: 600; color: var(--mid-green); background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-size: 0.9rem; }
+
+        /* Estilos Específicos */
+        .flex-container { display: flex; gap: 3rem; align-items: center; height: 100%; }
+        .half-width { flex: 1; }
+        .img-side { width: 100%; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.95rem; }
+        th { background: var(--dark-green); color: white; padding: 1rem; text-align: left; }
+        td { padding: 1rem; border-bottom: 1px solid #ddd; background: white; }
+        .icon-point { color: var(--gold); margin-right: 10px; font-weight: bold; }
+
+        .alert-card { background-color: #FFF9E6; border-top: 5px solid var(--gold); }
+    </style>
+</head>
+<body>
+
+    <div class="slider-container">
+
+        <div class="slide slide-image-bg active" id="slide1" style="background-image: url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200')">
+            <div class="overlay"></div>
+            <div class="content-relative" style="justify-content: center; align-items: center; text-align: center;">
+                <span class="header-label" style="color: var(--light-green)">Argumentación Académica</span>
+                <h1 class="title-large">Inversión sostenible<br>en Latinoamérica</h1>
+                <p class="subtitle">¿Moda pasajera o estrategia rentable?</p>
+                <div style="width: 150px; height: 4px; background: var(--gold); margin-top: 20px;"></div>
+                <p style="margin-top: 40px; font-weight: 300; letter-spacing: 1px;">Presentado por: Helijai Roberta Gómez Luna</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide2">
+            <span class="header-label">Planteamiento</span>
+            <h2>Pregunta de investigación</h2>
+            <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <p style="font-family: 'Playfair Display', serif; font-size: 2.3rem; color: var(--mid-green); max-width: 900px; line-height: 1.3;">
+                    "¿Es la inversión bajo criterios ASG una moda pasajera o una estrategia financieramente rentable en el largo plazo para el contexto latinoamericano?"
+                </p>
+                <div style="margin-top: 3rem; padding: 2.5rem; border: 3px solid var(--gold); border-radius: 15px; max-width: 800px;">
+                    <p style="font-size: 1.3rem; font-weight: 600; color: var(--dark-green);">
+                        TESIS: Cuando se implementa con autenticidad, la inversión ASG combina ética y rentabilidad, evitando costos derivados de riesgos no gestionados.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide3">
+            <span class="header-label">Justificación</span>
+            <div class="flex-container">
+                <div class="half-width">
+                    <h2>¿Por qué importa este tema?</h2>
+                    <ul style="list-style: none; font-size: 1.1rem; line-height: 1.8;">
+                        <li><span class="icon-point">🌎</span> <strong>Latinoamérica:</strong> marcos regulatorios inestables y conflictos socioambientales frecuentes.</li>
+                        <li><span class="icon-point">📈</span> <strong>Crecimiento global:</strong> aceleración de flujos hacia fondos ESG.</li>
+                        <li><span class="icon-point">⚖️</span> <strong>Tensión:</strong> rentabilidad inmediata vs. responsabilidad de largo plazo.</li>
+                    </ul>
+                    <p style="margin-top: 2rem; font-style: italic; color: var(--mid-green); font-weight: 600; font-size: 1.3rem;">"Ignorar los riesgos ASG no los elimina: los acumula."</p>
+                </div>
+                <div class="half-width">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800" class="img-side" alt="Naturaleza y Desarrollo">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide4">
+            <div class="bg-number">01</div>
+            <span class="header-label">Evidencia & Gestión</span>
+            <div class="flex-container" style="gap: 2rem;">
+                <div class="half-width">
+                    <h2>Riesgo ASG y stakeholders</h2>
+                    <div class="quote-block">
+                        <p class="quote-text">"Los conflictos de interés no gestionados y las debilidades en los mecanismos de gestión de grupos de interés pueden generar diversos riesgos..."</p>
+                        <span class="quote-author">— Lee et al., 2022</span>
+                    </div>
+                    <div class="card" style="margin-top: 1rem;">
+                        <p><strong>Impacto Directo:</strong> Sanciones regulatorias, paros comunitarios y daño severo a la reputación corporativa.</p>
+                    </div>
+                </div>
+                <div class="half-width">
+                    <img src="https://cdn.ogsmsoftware.com/wp-content/uploads/2022/08/ESG-Pictures-landing-page.png" class="img-side" style="background: white; padding: 10px;" alt="ESG Framework">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide5">
+            <div class="bg-number">03</div>
+            <span class="header-label">Evidencia & Datos</span>
+            <h2>Rentabilidad y flujo de caja</h2>
+            <div class="flex-container">
+                <div class="half-width">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span class="stat-highlight">90%</span>
+                        <p>de estudios muestran relación <strong>no negativa</strong> (Correa et al., 2020)</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;">
+                        <span class="stat-highlight">99%</span>
+                        <p>de confianza en relación positiva con <strong>flujo de caja libre</strong> (Olaya, 2025)</p>
+                    </div>
+                    <div class="quote-block">
+                        <p class="quote-text">"La relación entre las variables ASG y el desempeño financiero ha evidenciado... una relación no negativa."</p>
+                        <span class="quote-author">— Correa et al., 2020</span>
+                    </div>
+                </div>
+                <div class="half-width">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800" class="img-side" alt="Análisis Financiero">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide6">
+            <div class="bg-number">05</div>
+            <span class="header-label">Integridad Corporativa</span>
+            <h2>Greenwashing vs. Integración</h2>
+            <div class="quote-block" style="margin: 1rem 0;">
+                <p class="quote-text" style="font-size: 1.1rem;">"Las empresas que no invierten en términos ambientales y sociales quedan expuestas a riesgos asociados a cambios regulatorios..."</p>
+                <span class="quote-author">— Castro, 2025</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="background-color: #e63946; width: 50%;">❌ Greenwashing</th>
+                        <th style="background-color: var(--mid-green); width: 50%;">✅ Integración Genuina</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ilusión temporal:</strong> Marketing sin cambios de fondo.</td>
+                        <td><strong>Ventaja competitiva:</strong> Eficiencia operativa.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desconfianza:</strong> Vulnerabilidad ante auditorías sociales.</td>
+                        <td><strong>Reputación sólida:</strong> Acceso a capital preferente.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Riesgo oculto:</strong> Pasivos ambientales ocultos.</td>
+                        <td><strong>Flujos estables:</strong> Resiliencia ante crisis.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 1.5rem; text-align: center; font-weight: bold; color: var(--dark-green);">"Solo el compromiso real genera ventajas competitivas duraderas."</p>
+        </div>
+
+        <div class="slide" id="slide7">
+            <span class="header-label">Matices Académicos</span>
+            <h2>Lo que este argumento reconoce</h2>
+            <div class="card-grid">
+                <div class="card alert-card">
+                    <h3>01. Corto plazo</h3>
+                    <p>Fondos ESG mostraron retornos ajustados de -2% a -6% anual en etapas iniciales (Renneboog, 2008).</p>
+                </div>
+                <div class="card alert-card">
+                    <h3>02. Heterogeneidad</h3>
+                    <p>La madurez ASG varía drásticamente entre países líderes (Chile/Brasil) y el resto de la región.</p>
+                </div>
+                <div class="card alert-card">
+                    <h3>03. Información</h3>
+                    <p>Divulgación inmadura en Latam, lo que dificulta distinguir compromiso de cosmética (Alzate, 2025).</p>
+                </div>
+            </div>
+            <div style="margin-top: 3rem; text-align: center;">
+                <p style="font-style: italic; color: #666;">"Reconocer las limitaciones no debilita el argumento: lo hace más riguroso."</p>
+            </div>
+        </div>
+
+        <div class="slide slide-image-bg" id="slide8" style="background-image: url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1200')">
+            <div class="overlay" style="background: rgba(27, 67, 50, 0.94);"></div>
+            <div class="content-relative">
+                <h2 style="color: var(--gold); border-color: var(--gold);">Conclusión</h2>
+                <p style="font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-top: 1rem;">"La inversión ESG auténtica no es una moda. Es una estrategia de largo plazo que une ética y rentabilidad."</p>
+                
+                <div class="card-grid" style="margin-top: 2rem;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);">
+                        <span class="icon-point">✔</span> Riesgos ASG ignorados son costos futuros inevitables.
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);">
+                        <span class="icon-point">✔</span> El 90% de la evidencia respalda la rentabilidad no negativa.
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <p style="font-size: 1.6rem; font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold);">"Sostenibilidad y rentabilidad no son opuestos: son piezas del mismo engranaje."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="nav-btn" id="prevBtn" title="Anterior">←</button>
+            <div class="slide-counter" id="counter">1 / 8</div>
+            <button class="nav-btn" id="nextBtn" title="Siguiente">→</button>
+        </div>
+
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('counter');
+        let currentSlide = 0;
+
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            counter.innerText = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlides();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlides();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateSlides();
+                }
+            } else if (e.key === 'ArrowLeft') {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlides();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
